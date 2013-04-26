@@ -2,7 +2,8 @@
 [![Build Status](https://secure.travis-ci.org/passy/generator-heroku.png?branch=master)](https://travis-ci.org/passy/generator-heroku)
 
 A generator for Yeoman that sets up heroku hosting for you by creating a
-`Procfile` and setting up a node-based static http server.
+`Procfile` and setting up a node-based static http server using
+[static](https://github.com/hongymagic/statik).
 
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
