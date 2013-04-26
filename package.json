@@ -1,0 +1,39 @@
+{
+  "name": "generator-heroku",
+  "version": "0.0.0",
+  "description": "A heroku setup generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/passy/generator-heroku",
+  "bugs": "https://github.com/passy/generator-heroku/issues",
+  "author": {
+    "name": "Pascal Hartig",
+    "email": "phartig@rdrei.net",
+    "url": "https://github.com/passy"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/passy/generator-heroku.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.10.5",
+    "statik": "~1.2.5",
+    "colors": "~0.6.0-1"
+  },
+  "devDependencies": {
+    "mocha": "~1.9.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
