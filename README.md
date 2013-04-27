@@ -9,7 +9,12 @@ A generator for Yeoman that sets up heroku hosting for you by creating a
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator: `npm install -g generator-heroku`
+- Make sure you are in the root of your existing Yeoman application.
 - Run: `yo heroku`
+
+## Options
+
+- `--dist` lets you choose a distribution directory other than the default `dist`.
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

@@ -54,8 +54,9 @@ HerokuGenerator.prototype.askFor = function askFor() {
 };
 
 HerokuGenerator.prototype.nodestatic = function nodestatic() {
-  this.copy('Procfile', 'Procfile');
-  this.copy('server.js', 'server.js');
+  this.mkdir('heroku');
+  this.copy('Procfile', 'heroku/Procfile');
+  this.copy('server.js', 'heroku/server.js');
 };
 
 HerokuGenerator.prototype.distpackage = function distpackage() {
@@ -68,28 +69,16 @@ HerokuGenerator.prototype.distpackage = function distpackage() {
     }
   };
 
-  this.write('distpackage.json', JSON.stringify(distPkg, null, 2));
+  this.write('heroku/distpackage.json', JSON.stringify(distPkg, null, 2));
 };
 
-
-function showRewiringHelp() {
+HerokuGenerator.prototype.rewiregrunt = function rewiregrunt() {
   var template = this.readFileAsString(path.join(__dirname, 'templates', 'copytemplate.js'));
 
   console.log(
-    'Couldn\'t find a compatible Gruntfile. You need to manually ' +
-    'add this task: \n'.orange +
+    'Please add this copy task rule to your Gruntfile: \n'.yellow +
     template
-    );
-}
-
-HerokuGenerator.prototype.rewiregrunt = function rewiregrunt() {
-  var gruntfile = this.readFileAsString('Gruntfile.js');
-  var copyTaskRe = /copy: \{(?:.|\n)*src: \[(.|\n)*\](?:.|\n)*\},/;
-
-  var matches = gruntfile.match(copyTaskRe);
-  if (!matches || matches[0].indexOf('.htaccess') == -1) {
-    showRewiringHelp();
-  }
+  );
 };
 
 HerokuGenerator.prototype.gitsetup = function gitsetup() {

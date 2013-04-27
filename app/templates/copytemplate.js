@@ -1,18 +1,16 @@
     copy: {
         dist: {
             files: [{
+                expand: true,
                 dest: '<%= yeoman.dist %>',
-                src: [
-                    'Procfile',
-                    'server.js',
-                    'distpackage.json'
-                ],
+                cwd: 'heroku',
+                src: '*',
                 rename: function (dest, src) {
                     if (src === 'distpackage.json') {
                         return dest + 'package.json';
                     }
                     return dest + src;
                 }
-            }
+            }]
         }
     }
