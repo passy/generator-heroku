@@ -3,18 +3,17 @@ var util = require('util');
 var fs = require('fs');
 var yeoman = require('yeoman-generator');
 var exec = require('child_process').exec;
+var path = require('path');
 
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+}
 
 var HerokuGenerator = module.exports = function HerokuGenerator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
 
-  this.on('end', function () {
-    if (!options['skip-install']) {
-      if (!this.options['skip-install']) {
-        this.npmInstall('statik', { save: true });
-      }
-    }
-  });
+  this.options = options;
+  this.distDir = options.dist || 'dist';
 };
 
 util.inherits(HerokuGenerator, yeoman.generators.Base);
@@ -59,10 +58,44 @@ HerokuGenerator.prototype.nodestatic = function nodestatic() {
   this.copy('server.js', 'server.js');
 };
 
+HerokuGenerator.prototype.distpackage = function distpackage() {
+  var pkg = JSON.parse(this.readFileAsString('package.json'));
+  var distPkg = {
+    name: pkg.name || 'unnamed',
+    version: '0.0.0',
+    dependencies: {
+      'statik': '~1.2.5'
+    }
+  };
+
+  this.write('distpackage.json', JSON.stringify(distPkg, null, 2));
+};
+
+
+function showRewiringHelp() {
+  var template = this.readFileAsString(path.join(__dirname, 'templates', 'copytemplate.js'));
+
+  console.log(
+    'Couldn\'t find a compatible Gruntfile. You need to manually ' +
+    'add this task: \n'.orange +
+    template
+    );
+}
+
+HerokuGenerator.prototype.rewiregrunt = function rewiregrunt() {
+  var gruntfile = this.readFileAsString('Gruntfile.js');
+  var copyTaskRe = /copy: \{(?:.|\n)*src: \[(.|\n)*\](?:.|\n)*\},/;
+
+  var matches = gruntfile.match(copyTaskRe);
+  if (!matches || matches[0].indexOf('.htaccess') == -1) {
+    showRewiringHelp();
+  }
+};
+
 HerokuGenerator.prototype.gitsetup = function gitsetup() {
   if (this.distRepo) {
-    exec('git init', { cwd: 'dist/' });
-    console.log('You\'re all set! Now go to dist/ and run\n\t'.green +
+    exec('git init', { cwd: this.distDir });
+    console.log('You\'re all set! Now go to ' + this.distDir + ' and run\n\t'.green +
                 'heroku apps:create'.bold);
   } else {
     fs.readFile('.gitignore', { encoding: 'utf-8' }, function (err, data) {
@@ -71,13 +104,13 @@ HerokuGenerator.prototype.gitsetup = function gitsetup() {
       }
 
       // Remove dist/ ignore
-      data = data.replace(/dist\/?\n/g, '');
+      data = data.replace(new RegExp(escapeRegExp(this.distDir) + '\/?\n', 'g'), '');
 
       // Fire and forget
       fs.writeFile('.gitignore', data);
     });
     console.log('You\'re all set! Now run\n\t'.green + 'heroku apps:create'.bold +
-                '\nand push your dist/ directory with\n\t'.green +
+                '\nand push your ' + this.distDir + ' directory with\n\t'.green +
                 'git subtree push --prefix dist heroku master'.bold);
   }
 };
