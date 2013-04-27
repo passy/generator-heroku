@@ -1,16 +1,23 @@
 /*global describe, beforeEach, it*/
 'use strict';
 
-var path    = require('path');
+var path = require('path');
+var fs = require('fs');
 var helpers = require('yeoman-generator').test;
 
 
 describe('heroku generator', function () {
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    var tmpDir = path.join(__dirname, 'temp');
+    helpers.testDirectory(tmpDir, function (err) {
       if (err) {
         return done(err);
       }
+
+      fs.writeFileSync(path.join(tmpDir, 'package.json'), JSON.stringify({
+        name: 'testproj',
+        version: '1.3.7'
+      }));
 
       this.app = helpers.createGenerator('heroku:app', [
         '../../app'
@@ -22,8 +29,9 @@ describe('heroku generator', function () {
   it('creates expected files', function (done) {
     var expected = [
       // add files you expect to exist here.
-      'Procfile',
-      'server.js'
+      'heroku/Procfile',
+      'heroku/server.js',
+      ['heroku/distpackage.json', /"name": "testproj"/]
     ];
 
     helpers.mockPrompt(this.app, {
