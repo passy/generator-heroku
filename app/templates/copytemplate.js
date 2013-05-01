@@ -6,10 +6,11 @@
                 cwd: 'heroku',
                 src: '*',
                 rename: function (dest, src) {
+                    var path = require('path');
                     if (src === 'distpackage.json') {
-                        return dest + 'package.json';
+                        return path.join(dest, 'package.json');
                     }
-                    return dest + src;
+                    return path.join(dest, src);
                 }
             }]
         }

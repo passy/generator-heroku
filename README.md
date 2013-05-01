@@ -5,6 +5,12 @@ A generator for Yeoman that sets up heroku hosting for you by creating a
 `Procfile` and setting up a node-based static http server using
 [static](https://github.com/hongymagic/statik).
 
+## Roadmap
+
+Once there are placeholders in Yeoman, this will automatically rewire your
+Gruntfile to automatically copy the required files. For now, you have to
+manually adjust your build step for this to work comfortably.
+
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`

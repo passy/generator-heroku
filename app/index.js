@@ -97,7 +97,7 @@ HerokuGenerator.prototype.gitsetup = function gitsetup() {
 
       // Fire and forget
       fs.writeFile('.gitignore', data);
-    });
+    }.bind(this));
     console.log('You\'re all set! Now run\n\t'.green + 'heroku apps:create'.bold +
                 '\nand push your ' + this.distDir + ' directory with\n\t'.green +
                 'git subtree push --prefix dist heroku master'.bold);
