@@ -83,7 +83,7 @@ HerokuGenerator.prototype.rewiregrunt = function rewiregrunt() {
 
 HerokuGenerator.prototype.gitsetup = function gitsetup() {
   if (this.distRepo) {
-    exec('git init', { cwd: this.distDir });
+    exec('git init && git add -A && git commit -m "Initial commit"', { cwd: this.distDir });
     console.log('You\'re all set! Now go to ' + this.distDir + ' and run\n\t'.green +
                 'heroku apps:create'.bold);
   } else {
