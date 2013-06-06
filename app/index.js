@@ -37,17 +37,13 @@ HerokuGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
 
   var prompts = [{
+    type: 'confirm',
     name: 'distRepo',
-    message: 'Do you want a separate git repository in dist/?',
-    default: 'Y/n'
+    message: 'Do you want a separate git repository in dist/?'
   }];
 
-  this.prompt(prompts, function (err, props) {
-    if (err) {
-      return this.emit('error', err);
-    }
-
-    this.distRepo = (/y/i).test(props.distRepo);
+  this.prompt(prompts, function (props) {
+    this.distRepo = props.distRepo;
 
     cb();
   }.bind(this));
