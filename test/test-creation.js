@@ -38,6 +38,9 @@ describe('heroku generator', function () {
       'distGit': 'Y'
     });
 
+    // Override the system check.
+    this.app.checkInstallation = function () {};
+
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(expected);
