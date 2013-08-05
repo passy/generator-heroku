@@ -81,7 +81,7 @@ HerokuGenerator.prototype.rewiregrunt = function rewiregrunt() {
 HerokuGenerator.prototype.gitsetup = function gitsetup() {
   if (this.distRepo) {
     exec('git init && git add -A && git commit -m "Initial commit"', { cwd: this.distDir });
-    console.log(chalk.green('You\'re all set! Now go to ' + this.distDir + ' and run\n\t') +
+    console.log(chalk.green('You\'re all set! Now go to ' + chalk.bold(this.distDir) + ' and run\n\t') +
                 chalk.bold('heroku apps:create'));
   } else {
     fs.readFile('.gitignore', { encoding: 'utf-8' }, function (err, data) {
@@ -95,8 +95,8 @@ HerokuGenerator.prototype.gitsetup = function gitsetup() {
       // Fire and forget
       fs.writeFile('.gitignore', data);
     }.bind(this));
-    console.log(chalk.green('You\'re all set! Now run\n\t') + chalk.bold('heroku apps:create') +
-                chalk.green('\nand push your ' + this.distDir + ' directory with\n\t') +
+    console.log(chalk.green('You\'re all set! Now run\n\t' + chalk.bold('heroku apps:create') +
+                '\nand push your ' + this.distDir + ' directory with\n\t') +
                 chalk.bold('git subtree push --prefix dist heroku master'));
   }
 };
