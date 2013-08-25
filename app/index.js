@@ -57,7 +57,13 @@ HerokuGenerator.prototype.nodestatic = function nodestatic() {
 };
 
 HerokuGenerator.prototype.distpackage = function distpackage() {
-  var pkg = JSON.parse(this.readFileAsString('package.json'));
+  var pkgPath = path.resolve('package.json');
+  var pkg = {};
+
+  if (fs.existsSync(pkgPath)) {
+    pkg = JSON.parse(this.readFileAsString('package.json'));
+  }
+
   var distPkg = {
     name: pkg.name || 'unnamed',
     version: '0.0.0',

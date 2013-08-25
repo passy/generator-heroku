@@ -8,13 +8,13 @@ var helpers = require('yeoman-generator').test;
 
 describe('heroku generator', function () {
   beforeEach(function (done) {
-    var tmpDir = path.join(__dirname, 'temp');
-    helpers.testDirectory(tmpDir, function (err) {
+    this.tmpDir = path.join(__dirname, 'temp');
+    helpers.testDirectory(this.tmpDir, function (err) {
       if (err) {
         return done(err);
       }
 
-      fs.writeFileSync(path.join(tmpDir, 'package.json'), JSON.stringify({
+      fs.writeFileSync(path.join(this.tmpDir, 'package.json'), JSON.stringify({
         name: 'testproj',
         version: '1.3.7'
       }));
@@ -44,6 +44,22 @@ describe('heroku generator', function () {
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(expected);
+      done();
+    });
+  });
+
+  it('works w/o package.json', function (done) {
+    helpers.mockPrompt(this.app, {
+      'distGit': 'N'
+    });
+
+    var pkgPath = path.join(this.tmpDir, 'package.json');
+    fs.unlinkSync(pkgPath);
+    // Override the system check.
+    this.app.checkInstallation = function () {};
+
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
       done();
     });
   });
