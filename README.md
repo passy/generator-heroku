@@ -17,6 +17,8 @@ manually adjust your build step for this to work comfortably.
 - Install the generator: `npm install -g generator-heroku`
 - Make sure you are in the root of your existing Yeoman application.
 - Run: `yo heroku`
+- Go to dist `cd dist`
+- Push dist to heroku: 'git push heroku master'
 
 ## Options
 
