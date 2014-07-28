@@ -1,5 +1,12 @@
-# Generator heroku
-[![Build Status](https://secure.travis-ci.org/passy/generator-heroku.png?branch=master)](https://travis-ci.org/passy/generator-heroku) [![NPM version](https://badge.fury.io/js/generator-heroku.png)](http://badge.fury.io/js/generator-heroku) [![Dependency Status](https://gemnasium.com/passy/generator-heroku.png)](https://gemnasium.com/passy/generator-heroku)
+# Yeoman Generator Heroku
+[![Build status](http://img.shields.io/travis/passy/generator-heroku/master.svg?style=flat
+)](https://travis-ci.org/passy/generator-heroku)
+[![NPM version](http://img.shields.io/npm/v/generator-heroku.svg?style=flat)](http://badge.fury.io/js/generator-heroku)
+[![Dependecy Status](http://img.shields.io/gemnasium/passy/generator-heroku.svg?style=flat)](https://gemnasium.com/passy/generator-heroku)
+
+![Heroku + Yeoman](http://i.imgur.com/tnAKm1f.png)
+
+## Introduction
 
 A generator for Yeoman that sets up heroku hosting for you by creating a
 `Procfile` and setting up a node-based static http server using
