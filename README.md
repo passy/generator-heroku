@@ -1,4 +1,6 @@
 # Yeoman Generator Heroku
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/passy/generator-heroku.svg)](https://greenkeeper.io/)
 [![Build status](http://img.shields.io/travis/passy/generator-heroku/master.svg?style=flat
 )](https://travis-ci.org/passy/generator-heroku)
 [![NPM version](http://img.shields.io/npm/v/generator-heroku.svg?style=flat)](http://badge.fury.io/js/generator-heroku)
